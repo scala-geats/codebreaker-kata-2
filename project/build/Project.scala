@@ -1,6 +1,6 @@
 import sbt._
 
-class TheProj(info: ProjectInfo) extends DefaultProject(info) {
+class TheProj(info: ProjectInfo) extends DefaultProject(info) with IdeaProject {
 
   val scalaToolsSnapshots = ScalaToolsSnapshots
 

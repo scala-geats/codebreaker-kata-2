@@ -9,17 +9,14 @@ class CodeBreaker(secret: String) {
     val guessList = guess.split("\\s")
 
     var matches = List[String]()
-    (0 until guessList.size).foreach(i => {
-      val guessToken = guessList(i)
-      val secretToken = secretList(i)
+    guessList zip secretList foreach(i => {
+      val (guessToken, secretToken) = i
 
-      //println(guessToken + " -- " + secretToken)
-      //println(guessToken == secretToken)
       if(guessToken == secretToken) matches = "p" :: matches
       else {
         var found = false
         (0 until secretList.size).foreach(j => {
-          if(secretList(j) == guessToken && i != j) {
+          if(secretList(j) == guessToken ) {
             found = true
           }
         })
