@@ -6,21 +6,11 @@ class CodeBreaker(secret: String) {
   val secretList = secret.split("\\s")
 
   def guess(guess: String): List[String] = {
-    val guessList = guess.split("\\s")
+    val zippedList = guess.split("\\s") zip secretList
 
-    var pMatches: Array[String] = guessList zip secretList map(i => {
-      if(i._1 == i._2) "p"
-      else ""
-    })
+    var pMatches = for(tuple <- zippedList if tuple._1 == tuple._2) yield "p"
 
-    pMatches = pMatches.filter(_ == "p")
-
-    var mMatches: Array[String] = guessList zip secretList map(i => {
-      if(i._1 != i._2 && secretList.contains(i._1)) "m"
-      else ""
-    })
-
-    mMatches = mMatches.filter(_ == "m")
+    var mMatches = for(tuple <- zippedList if tuple._1 != tuple._2 && secretList.contains(tuple._1)) yield "m"
 
     return (pMatches ++ mMatches).toList
   }
