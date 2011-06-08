@@ -8,25 +8,21 @@ class CodeBreaker(secret: String) {
   def guess(guess: String): List[String] = {
     val guessList = guess.split("\\s")
 
-    var matches = List[String]()
-    guessList zip secretList foreach(i => {
-      val (guessToken, secretToken) = i
-
-      if(guessToken == secretToken) matches = "p" :: matches
-      else {
-        var found = false
-        (0 until secretList.size).foreach(j => {
-          if(secretList(j) == guessToken ) {
-            found = true
-          }
-        })
-        if(found) matches = "m" :: matches
-      }
+    var pMatches: Array[String] = guessList zip secretList map(i => {
+      if(i._1 == i._2) "p"
+      else ""
     })
 
+    pMatches = pMatches.filter(_ == "p")
 
+    var mMatches: Array[String] = guessList zip secretList map(i => {
+      if(i._1 != i._2 && secretList.contains(i._1)) "m"
+      else ""
+    })
 
-    return matches.sortWith((s1, s2) => s1 > s2)
+    mMatches = mMatches.filter(_ == "m")
+
+    return (pMatches ++ mMatches).toList
   }
 
 
