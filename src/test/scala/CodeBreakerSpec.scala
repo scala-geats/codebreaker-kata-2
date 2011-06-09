@@ -46,7 +46,7 @@ class CodeBreakerSpec extends Specification {
     }
 
     "find both position and non-position matches" in new context {
-      ("r y r b" ? "r r x x").toList must be equalTo(List("p", "m"))
+      ("r y r b r" ? "r r x r x").toList must be equalTo(List("p", "m", "m"))
     }
 
     "handle multiple non-position matches, but only until matches are used up" in new context {
