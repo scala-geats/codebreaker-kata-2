@@ -21,10 +21,10 @@ class CodeBreakerSpec extends Specification {
     }
 
     "return an list with two 'p' if two match on right position " in new context {
-      "r y g b".?("r a g l").toList must be equalTo(List("p", "p"))
-      "r y g b".?("r a x b").toList must be equalTo(List("p", "p"))
-      "r y g b".?("r y x l").toList must be equalTo(List("p", "p"))
-      "r y g b".?("x y x b").toList must be equalTo(List("p", "p"))
+      ("r y g b" ? "r a g l").toList must be equalTo(List("p", "p"))
+      ("r y g b" ? "r a x b").toList must be equalTo(List("p", "p"))
+      ("r y g b" ? "r y x l").toList must be equalTo(List("p", "p"))
+      ("r y g b" ? "x y x b").toList must be equalTo(List("p", "p"))
     }
 
 
@@ -49,9 +49,14 @@ class CodeBreakerSpec extends Specification {
       ("r y r b" ? "r r x x").toList must be equalTo(List("p", "m"))
     }
 
-    "handle multiple non-position matches" in new context {
-      ("r y r b" ? "r r x r").toList must be equalTo(List("p", "m", "m"))
+    "handle multiple non-position matches, but only until matches are used up" in new context {
+      ("r y r b" ? "r r x r").toList must be equalTo(List("p", "m"))
     }
+
+    "not reuse already matched colors" in new context {
+      ("r r y b" ? "r r r r").toList must be equalTo(List("p", "p"))
+    }
+
   }
 
 }
