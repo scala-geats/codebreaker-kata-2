@@ -10,7 +10,7 @@ class CodeBreaker(secret: String) {
     // splits the tuples into two separate lists
     val (sr, gr) = others unzip
 
-    // intersects (returns only those elemens with exists in both lists)
+    // intersects (returns only those elements which exists in both lists)
     // then maps to "p" or "m"
     (ps map(t => "p")) ++ (sr intersect gr map(t => "m"))
   }
