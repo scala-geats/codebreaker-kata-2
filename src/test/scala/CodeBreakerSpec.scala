@@ -57,6 +57,11 @@ class CodeBreakerSpec extends Specification {
       ("r r y b" ? "r r r r").toList must be equalTo(List("p", "p"))
     }
 
+    "handle different length guess" in new context {
+      ("r r y b" ? "r r r").toList must be equalTo(List("p", "p"))
+      ("r r y b" ? "r r r x x").toList must be equalTo(List("p", "p"))
+    }
+
   }
 
 }
